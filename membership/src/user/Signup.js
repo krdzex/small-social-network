@@ -62,7 +62,6 @@ export default function Signup() {
             password: values.password || undefined,
         };
         create(user).then((data) => {
-            console.log(data)
             if (data.error) setValues({ ...values, error: data.error });
             else setValues({ ...values, error: "", open: true })
         })

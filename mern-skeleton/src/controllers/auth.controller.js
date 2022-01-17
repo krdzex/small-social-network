@@ -4,7 +4,7 @@ import expressJwt from "express-jwt";
 import config from "./../config/config";
 
 const signin = (req, res) => {
-    User.findOne({ "email": req.body.email }, (err, user) => {
+    User.findOne({ "email": req.body.email, "active": true }, (err, user) => {
         if (err || !user)
             return res.status("401").json({
                 error: "User not found"

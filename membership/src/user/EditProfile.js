@@ -58,7 +58,7 @@ export default function EditProfile({ match }) {
     useEffect(() => {
         read({ userId: match.params.userId }, jwt.token)
             .then((data) => {
-                setValues({ ...values, email: data.email, name: data.name,about: data.about })
+                setValues({ ...values, email: data.email, name: data.name, about: data.about })
             })
     }, [])
 
@@ -83,15 +83,18 @@ export default function EditProfile({ match }) {
                     <Typography variant="h6" className={classes.title}>
                         Edit Profile
                     </Typography>
-                    <input accept="image/*" type="file" encType="multipart/form-data" onChange={handleChange("photo")} className={classes.input} style={{ display: "none" }} id="icon-button-file" />
-                    <label htmlFor="icon-button-file">
-                        <Button variant="contained" color="default" component="span">
-                            Upload <FileUpload />
-                        </Button>
-                    </label>
-                    <span className={classes.filename}>
-                        {values.photo ? values.photo.name : ""}
-                    </span>
+                    <div>
+                        <input accept="image/*" type="file" encType="multipart/form-data" onChange={handleChange("photo")} className={classes.input} style={{ display: "none" }} id="icon-button-file" />
+                        <label htmlFor="icon-button-file">
+                            <Button variant="contained" color="default" component="span">
+                                Upload <FileUpload />
+                            </Button>
+                        </label>
+                        <span className={classes.filename}>
+                            {values.photo ? values.photo.name : ""}
+                        </span>
+                    </div>
+
                     <TextField id="name" label="Name" className={classes.textField} value={values.name} onChange={handleChange("name")} margin="normal" /><br />
                     <TextField id="email" type="email" label="Email" className={classes.textField} value={values.email} onChange={handleChange("email")} margin="normal" /><br />
                     <TextField id="about" multiline rows={2} label="About" className={classes.textField} value={values.about} onChange={handleChange("about")} margin="normal" /><br />

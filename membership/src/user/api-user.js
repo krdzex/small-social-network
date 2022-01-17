@@ -28,14 +28,14 @@ const read = (params, token) => {
 }
 
 const update = (params, token, user) => {
-    
+
     return fetch(`${baseUrl}/api/users/${params.userId}`, {
         method: "PUT",
         headers: {
             "Authorization": "Bearer " + token,
         },
         body: user,
-        
+
     })
         .then(response => response.json())
         .catch(err => console.log(err))
@@ -54,16 +54,16 @@ const remove = (params, token) => {
         .catch(err => console.log(err))
 }
 
-const follow = async(params,credentials,followId) =>{
+const follow = async (params, credentials, followId) => {
     try {
-        let response = await fetch("/api/users/follow/",{
+        let response = await fetch(`${baseUrl}/api/follow`, {
             method: "PUT",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + credentials.t,
             },
-            body: JSON.stringify({userId: params.userId,followId: followId})
+            body: JSON.stringify({ userId: params.userId, followId: followId })
         })
         return await response.json()
     } catch (err) {
@@ -71,16 +71,16 @@ const follow = async(params,credentials,followId) =>{
     }
 }
 
-const unfollow = async(params,credentials,unfollowId) =>{
+const unfollow = async (params, credentials, unfollowId) => {
     try {
-        let response = await fetch("/api/users/unfollow/",{
+        let response = await fetch(`${baseUrl}/api/unfollow`, {
             method: "PUT",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + credentials.t,
             },
-            body: JSON.stringify({userId: params.userId,unfollowId: unfollowId})
+            body: JSON.stringify({ userId: params.userId, unfollowId: unfollowId })
         })
         return await response.json()
     } catch (err) {
@@ -88,4 +88,21 @@ const unfollow = async(params,credentials,unfollowId) =>{
     }
 }
 
-export { create, list, read, update, remove,follow,unfollow }
+const findPeople = async (params, credentials, signal) => {
+    try {
+        let response = await fetch(`${baseUrl}/api/user/findpeople/` + params.userId, {
+            method: "GET",
+            signal: signal,
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + credentials.t,
+            }
+        })
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export { create, list, read, update, remove, follow, unfollow, findPeople }

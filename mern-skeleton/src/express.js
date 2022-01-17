@@ -7,6 +7,7 @@ import cors from "cors"
 import Template from "../template";
 import userRoutes from "./routes/user.routes"
 import authRoutes from "./routes/auth.routes"
+import postRoutes from "./routes/post.routes"
 const app = express();
 
 app.use(bodyParser.json());
@@ -23,6 +24,7 @@ const corsConfig = {
 app.use(cors(corsConfig));
 app.use("/", userRoutes)
 app.use("/", authRoutes)
+app.use("/", postRoutes)
 
 app.use((err, req, res, next) => {
 
